@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BinarySearchTreeImplementation
 {
@@ -180,10 +182,71 @@ namespace BinarySearchTreeImplementation
                     }
                 }
             }
+
+            public void BreadthFirstSearch()
+            {
+                if (Root == null)
+                    return;
+                var current = Root;
+                List<Node> queue = new List<Node>();
+                queue.Add(current);
+                while(queue.Count > 0)
+                {
+                    Console.WriteLine(queue.FirstOrDefault().Value.ToString());
+                    current = queue.FirstOrDefault();
+                    queue.RemoveAt(0);
+                    if (current.Left != null)
+                        queue.Add(current.Left);
+                    if (current.Right != null)
+                        queue.Add(current.Right);
+                }                
+            }
+
+            public void DFTPreOrder()
+            {
+                RecursivePreOrder(Root);
+            }
+
+            public void DFTInOrder()
+            {
+                RecursiveInOrder(Root);
+            }
+
+            public void DFTPostOrder()
+            {
+                RecursivePostOrder(Root);
+            }
+
+            private void RecursivePreOrder(Node node)
+            {
+                Console.WriteLine(node.Value.ToString());
+                if(node.Left != null)
+                    RecursivePreOrder(node.Left);
+                if (node.Right != null)
+                    RecursivePreOrder(node.Right);
+            }
+
+            private void RecursiveInOrder(Node node)
+            {                
+                if (node.Left != null)
+                    RecursivePreOrder(node.Left);
+                Console.WriteLine(node.Value.ToString());
+                if (node.Right != null)
+                    RecursivePreOrder(node.Right);
+            }
+
+            private void RecursivePostOrder(Node node)
+            {
+                if (node.Left != null)
+                    RecursivePreOrder(node.Left);                
+                if (node.Right != null)
+                    RecursivePreOrder(node.Right);
+                Console.WriteLine(node.Value.ToString());
+            }
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
